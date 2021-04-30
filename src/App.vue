@@ -1,32 +1,31 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+  <div class="main">
+    <router-view/>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import "~materialize-css/dist/css/materialize.min.css";
+
+html {
+  background: #abebc6;
+  height: 100vh;
 }
 
-#nav {
-  padding: 30px;
+body {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.main {
+  margin: 0 auto;
+  width: 480px;
+  height: 848px;
+  background: #e3d0d8;
 }
 </style>
+<script>
+export default {};
+</script>

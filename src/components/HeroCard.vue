@@ -6,15 +6,23 @@
 </template>
 
 <script>
-
 import {mapActions, mapGetters} from "vuex";
+import {eventBus} from "@/main";
 
 export default {
   name: "HeroCard",
-  props: ['heroIndex'],
+  props: ["heroIndex"],
+  created() {
+    eventBus.$on("levelUp" + this.heroIndex, () => {
+      clearInterval(this.attackInterval);
+      this.setFields(this.heroes);
+      this.startAtk();
+    });
+  },
   data: () => ({
     level: null,
     dmg: null,
+    dmgMult: 1,
     attackInterval: false,
     atkSpeed: 1000,
   }),
@@ -24,19 +32,23 @@ export default {
       heroes.forEach((item) => {
         if (item.index === this.heroIndex) {
           this.level = item.level;
-          this.dmg = item.dmg;
+          this.dmgMult = item.dmgMult;
         }
-      })
+      });
+    },
+    startAtk() {
+      this.dmg = this.level * this.dmgMult;
+      this.attackInterval = setInterval(() => {
+        this.takeDmg(this.dmg);
+      }, this.atkSpeed);
     }
   },
   computed: {
-    ...mapGetters(['heroes']),
+    ...mapGetters(["heroes"]),
   },
   mounted() {
     this.setFields(this.heroes);
-    this.attackInterval = setInterval(() => {
-      this.takeDmg(this.dmg);
-    }, this.atkSpeed);
+    this.startAtk();
   },
 };
 </script>

@@ -1,14 +1,17 @@
 <template>
   <div class="heroes-container" :class="{ show: show }">
     <ul class="heroes-ul">
-      <li :key="hero.id" v-for="hero in heroesList" class="heroes-li">
-        <a class="heroes-a"
-           :id="hero.id"
-           @click.prevent="setHeroes(getCurrentHeroArray(hero.id))"
+      <li :key="hero.index" v-for="hero in heroesClear" class="heroes-li"
+          :class="{'not-avail' : heroMoney < hero.money}">
+        <a
+            class="heroes-a"
+            :id="hero.index"
+            @click.prevent="heroMoney >= hero.money && setHeroes(getCurrentHeroArray(hero.index))"
         >
           {{ hero.name }}
         </a>
-        <div class="level-up"></div>
+        <div class="level-up"
+             @click="heroMoney >= hero.money && levelUp({'index': hero.index, 'money':hero.money})"></div>
       </li>
     </ul>
   </div>
@@ -16,7 +19,7 @@
 
 <script>
 import {eventBus} from "@/main";
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "HeroesContainer",
@@ -27,18 +30,17 @@ export default {
   },
   data: () => ({
     show: false,
-    heroesList: [
-      {id: 1, name: "name1"},
-      {id: 2, name: "name2"},
-    ],
   }),
+  computed: {
+    ...mapGetters(["heroesClear", "heroMoney"]),
+  },
   methods: {
-    ...mapActions(["setHeroes"]),
+    ...mapActions(["setHeroes", "levelUp"]),
     getCurrentHeroArray(id) {
       let heroCurrent = [...this.$store.getters.heroes];
-      heroCurrent[id - 1].level = 1;
+      heroCurrent[id].level = 1;
       return heroCurrent;
-    }
+    },
   },
 };
 </script>
@@ -57,14 +59,21 @@ export default {
 .heroes-ul {
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .heroes-li {
   width: 100%;
-  height: 50px;
-  margin-top: 15px;
+  height: 25px;
   display: flex;
   justify-content: space-between;
+  background: cornflowerblue;
+}
+
+.heroes-li a {
+  color: black;
 }
 
 .level-up {
@@ -75,5 +84,9 @@ export default {
 
 .show {
   display: block;
+}
+
+.not-avail {
+  opacity: 0.25;
 }
 </style>

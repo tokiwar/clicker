@@ -10,17 +10,13 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "BossCard",
-  data: () => ({
-    money: 1,
-  }),
   computed: {
-    ...mapGetters(['hp']),
-    ...mapGetters(['level']),
-  }
+    ...mapGetters(["hp", "level", "money"]),
+  },
 };
 </script>
 

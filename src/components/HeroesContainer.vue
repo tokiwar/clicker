@@ -13,12 +13,14 @@
             :id="hero.index"
             :class="{'not-avail' : (heroMoney < countMult(hero).result || countMult(hero).result < 1)}"
         >
-          <span :class="{'not-avail' : (heroMoney < countMult(hero).result || countMult(hero).result < 1)}">{{ hero.name }}</span>
+          <span :class="{'not-avail' : (heroMoney < countMult(hero).result || countMult(hero).result < 1)}">{{
+              hero.name
+            }}</span>
         </a>
-        <div class="level-up"
+        <div class="level-up" :hero="countMult(hero).result"
              :class="{'not-avail' : (heroMoney < countMult(hero).result || countMult(hero).result < 1)}"
              @click="heroMoney >= countMult(hero).result && countMult(hero).result > 0 && levelUp({'index': hero.index, 'money':countMult(hero).result, 'level' : countMult(hero).heroLvl || currentLvlMult})">
-          {{ countMult(hero).result || hero.money }}
+          {{ beautifyNumbers(countMult(hero).result) || beautifyNumbers(hero.money) }}
         </div>
       </li>
     </ul>
@@ -49,6 +51,21 @@ export default {
     setLevelMult() {
       this.currentLvlMult = event.target.value;
     },
+    beautifyNumbers(number) {
+      if (parseInt(number / 1000, 10) > 0) {
+        let lastThree = number.toString().substr(number.toString().length - 3);
+        if (lastThree === "000") {
+          if (parseInt(number / 1000000, 10) > 0) {
+            let lastSix = number.toString().substr(number.toString().length - 6);
+            if (lastSix === "000000") {
+              return number / 1000000 + 'KK';
+            }
+          }
+          return number / 1000 + 'K';
+        }
+      }
+      return number;
+    },
     countMult(hero) {
       const level = hero.level;
       const costs = hero.costStart;
@@ -66,9 +83,14 @@ export default {
           result += costs * (level + i);
           i++;
         }
-        result -= costs * (level + i - 1);
+        if (i > 2) {
+          result -= costs * (level + i - 1);
+          i -= 2;
+        } else {
+          i = 1;
+        }
       }
-      return {result:result, heroLvl: i};
+      return {result: result, heroLvl: i};
     }
   },
 };
@@ -99,7 +121,6 @@ export default {
   border-top: solid #1344a0 4px;
   border-left: solid #1344a0 4px;
   border-right: solid #1344a0 4px;
-  user-select: none;
 }
 
 .heroes-mult li {
@@ -127,7 +148,6 @@ export default {
   justify-content: space-evenly;
   margin-block-end: 0;
   margin-block-start: 0;
-  user-select: none;
 }
 
 .heroes-li {
@@ -154,6 +174,8 @@ export default {
   color: black;
   width: 75%;
   display: flex;
+  font-size: 20px;
+  border-right: solid #1344a0 1px;
 }
 
 .heroes-li span {
@@ -172,7 +194,7 @@ export default {
   justify-content: center;
   align-items: center;
   font-weight: 500;
-  border-left: solid #1344a0 4px;
+  border-left: solid #1344a0 3px;
 }
 
 .show {

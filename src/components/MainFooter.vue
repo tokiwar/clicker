@@ -1,12 +1,12 @@
 <template>
   <div class="main-window-footer">
-    <div class="container-button" @click="openHeroes"></div>
+    <div class="container-button" @click="openHeroes"><img src="@/assets/img/system/heroes.png" alt=""/></div>
     <div class="container-button" @click="openSkills"></div>
   </div>
 </template>
 
 <script>
-import { eventBus } from "@/main";
+import {eventBus} from "@/main";
 
 export default {
   name: "MainFooter",
@@ -33,8 +33,16 @@ export default {
 
 .container-button {
   height: 100%;
-  background: red;
-  width: 108px;
+  width: 100px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: cornflowerblue;
+}
+
+.container-button img {
+  width: 85px;
+  height: 85px;
 }
 </style>

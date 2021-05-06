@@ -1,8 +1,3 @@
-@font-face {
-    font-family: 'Conneqt';
-    src: url('~@/assets/fonts/ConneqtRegular.woff') format('woff');
-}
-
 html {
     background: #abebc6;
     height: 100vh;
@@ -13,7 +8,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    font-family: Conneqt, sans-serif;
+    font-family: Impact, sans-serif;
+    user-select: none;
+}
+
+img {
+    -webkit-user-drag: none;
 }
 
 .main {

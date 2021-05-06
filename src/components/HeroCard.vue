@@ -1,7 +1,12 @@
 <template>
   <div class="hero">
-    <span>Level: {{ level }}</span>
-    <span>Dmg: {{ dmg }}</span>
+    <template v-if="image">
+      <img :src="require('@/assets/img/heroes/'+image)" alt=""/>
+    </template>
+    <template v-else>
+      <span>Level: {{ level }}</span>
+      <span>Dmg: {{ dmg }}</span>
+    </template>
   </div>
 </template>
 
@@ -25,6 +30,7 @@ export default {
     dmgMult: 1,
     attackInterval: false,
     atkSpeed: 1000,
+    image: null,
   }),
   methods: {
     ...mapActions(["takeDmg"]),
@@ -33,6 +39,9 @@ export default {
         if (item.index === this.heroIndex) {
           this.level = item.level;
           this.dmgMult = item.dmgMult;
+          if (item.image) {
+            this.image = item.image;
+          }
         }
       });
     },
@@ -57,10 +66,13 @@ export default {
 .hero {
   width: 125px;
   height: 125px;
-  background: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.hero img{
+  height: 105px;
+  width: 105px;
 }
 </style>

@@ -1,21 +1,25 @@
 <template>
   <div class="boss">
     <div class="boss-bar">
-      <div class="boss-hp"></div>
+      <div class="boss-hp-current" :style="{width: `${300 * hp / maxHp}px`}"></div>
+      <div class="boss-hp"><span>{{ hp }}</span></div>
     </div>
-    <span>Level: {{ level }}</span>
-    <span>Hp: {{ hp }}</span>
-    <span>Money: {{ money }}</span>
+
+    <img :src="bossImage" alt=""/>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import {mapGetters} from "vuex";
+import bossImage from "@/assets/img/bosses/boss-1.png";
 
 export default {
   name: "BossCard",
+  data: () => ({
+    bossImage: bossImage,
+  }),
   computed: {
-    ...mapGetters(["hp", "level", "money"]),
+    ...mapGetters(["hp", "level", "money", "maxHp"]),
   },
 };
 </script>
@@ -28,7 +32,6 @@ span {
 .boss {
   width: 150px;
   height: 150px;
-  background: black;
   position: relative;
   display: flex;
   justify-content: center;
@@ -49,7 +52,25 @@ span {
 
 .boss-hp {
   width: 300px;
-  height: 25px;
-  background: red;
+  height: 50px;
+  background: #4d0000;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+}
+
+.boss-hp span {
+  z-index: 100000;
+}
+
+.boss-hp-current {
+  background: #FF0000;
+  width: 300px;
+  height: 50px;
+  justify-content: left;
+  display: flex;
+  font-size: 30px;
+  position: absolute;
 }
 </style>

@@ -3,7 +3,7 @@ import {eventBus} from "@/main";
 export default {
   state: {
     heroes: [
-      {index: 0, level: 0, dmgMult: 4, costStart: 1, name: "name1"},
+      {index: 0, level: 0, dmgMult: 4, costStart: 1, name: "Knight", image:"hero-1.png"},
       {index: 1, level: 0, dmgMult: 16, costStart: 15, name: "name2"},
       {index: 2, level: 0, dmgMult: 64, costStart: 150, name: "name3"},
       {index: 3, level: 0, dmgMult: 256, costStart: 1500, name: "name4"},

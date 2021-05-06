@@ -1,9 +1,10 @@
 export default {
   state: {
     level: 1,
-    hp: 50,
+    hp: 30,
     money: 1,
-    heroMoney: 1,
+    heroMoney: 1000,
+    hpMult: 30,
   },
   getters: {
     hp: (s) => s.hp,
@@ -20,16 +21,18 @@ export default {
       if (state.hp < 1) {
         state.heroMoney += state.money;
         state.level++;
-        state.hp = state.level * 50;
+        state.hp = state.level * state.hpMult;
+        state.hp += parseInt(state.hp / 100 * 50, 10);
         state.money = state.level;
+        state.money += parseInt(state.money / 100 * 25, 10);
       }
     },
   },
   actions: {
-    moneyOff({ commit }, money) {
+    moneyOff({commit}, money) {
       commit("MONEY_OFF", money);
     },
-    takeDmg({ commit }, dmg) {
+    takeDmg({commit}, dmg) {
       commit("TAKE_DMG", dmg);
     },
   },

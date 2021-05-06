@@ -1,16 +1,17 @@
 <template>
   <div class="main-window-header">
     <span>Money: {{ this.heroMoney }}</span>
+    <span>DPS: {{ this.fullDmg }}</span>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import {mapGetters} from "vuex";
 
 export default {
   name: "MainHeader",
   computed: {
-    ...mapGetters(["heroMoney"]),
+    ...mapGetters(["heroMoney", "fullDmg"]),
   },
 };
 </script>
@@ -21,7 +22,7 @@ export default {
   width: 100%;
   background: #66c3ff;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   font-size: 25px;
 }

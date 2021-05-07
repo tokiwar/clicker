@@ -11,16 +11,20 @@
         <a
             class="heroes-a"
             :id="hero.index"
-            :class="{'not-avail' : (heroMoney < countMult(hero).result || countMult(hero).result < 1)}"
+            :class="{'hero': hero.level}"
         >
-          <span :class="{'not-avail' : (heroMoney < countMult(hero).result || countMult(hero).result < 1)}">{{
+          <span>{{
               hero.name
             }}</span>
         </a>
+        <div class="level-info" v-if="hero.level">
+          <div class="hero-info-inner">Level: {{hero.level}}</div>
+          <div class="hero-info-inner">Dps: {{hero.level * hero.dmgMult}}</div>
+        </div>
         <div class="level-up" :hero="countMult(hero).result"
              :class="{'not-avail' : (heroMoney < countMult(hero).result || countMult(hero).result < 1)}"
              @click="heroMoney >= countMult(hero).result && countMult(hero).result > 0 && levelUp({'index': hero.index, 'money':countMult(hero).result, 'level' : countMult(hero).heroLvl || currentLvlMult})">
-          {{ beautifyNumbers(countMult(hero).result) || beautifyNumbers(hero.money) }}
+          {{ (currentLvlMult === -1 && heroMoney >= countMult(hero).result ? (beautifyNumbers(countMult(hero).result) + " +(" + countMult(hero).heroLvl + ")") : (beautifyNumbers(countMult(hero).result))) || beautifyNumbers(hero.money) }}
         </div>
       </li>
     </ul>
@@ -172,10 +176,13 @@ export default {
 
 .heroes-li a {
   color: black;
-  width: 75%;
+  width: 50%;
   display: flex;
   font-size: 20px;
-  border-right: solid #1344a0 1px;
+}
+
+.heroes-li a.hero{
+  border-right: solid #1344a0 2px;
 }
 
 .heroes-li span {
@@ -183,6 +190,17 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
+}
+
+.level-info{
+  width: 25%;
+  background: burlywood;
+  border-left: solid #1344a0 2px;
+  border-right: solid #1344a0 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .level-up {

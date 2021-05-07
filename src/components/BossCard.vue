@@ -5,21 +5,19 @@
       <div class="boss-hp"><span>{{ hp }}</span></div>
     </div>
 
-    <img :src="bossImage" alt=""/>
+    <img :src="require('@/assets/img/bosses/boss-' + this.bossType +'.png')" alt=""/>
   </div>
 </template>
 
 <script>
 import {mapGetters} from "vuex";
-import bossImage from "@/assets/img/bosses/boss-1.png";
 
 export default {
   name: "BossCard",
   data: () => ({
-    bossImage: bossImage,
   }),
   computed: {
-    ...mapGetters(["hp", "level", "money", "maxHp"]),
+    ...mapGetters(["hp", "level", "money", "maxHp", "bossType", "firstSkillStatus"]),
   },
 };
 </script>

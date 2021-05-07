@@ -71,7 +71,8 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.hero img{
+
+.hero img {
   height: 105px;
   width: 105px;
 }

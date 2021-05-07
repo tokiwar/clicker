@@ -1,5 +1,6 @@
 <template>
   <div class="main-window-header">
+    <span>Boss level: {{ this.level }}</span>
     <span>Money: {{ this.heroMoney }}</span>
     <span>DPS: {{ this.fullDmg }}</span>
   </div>
@@ -11,7 +12,7 @@ import {mapGetters} from "vuex";
 export default {
   name: "MainHeader",
   computed: {
-    ...mapGetters(["heroMoney", "fullDmg"]),
+    ...mapGetters(["heroMoney", "fullDmg", "level"]),
   },
 };
 </script>

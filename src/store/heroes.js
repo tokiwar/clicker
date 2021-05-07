@@ -3,15 +3,15 @@ import {eventBus} from "@/main";
 export default {
   state: {
     heroes: [
-      {index: 0, level: 0, dmgMult: 4, costStart: 1, name: "Knight", image:"hero-right-1.png"},
+      {index: 0, level: 0, dmgMult: 4, costStart: 1, name: "Knight", image: "hero-right-1.png"},
       {index: 1, level: 0, dmgMult: 16, costStart: 15, name: "name2"},
-      {index: 2, level: 0, dmgMult: 64, costStart: 150, name: "name3", image:"hero-left-1.png"},
-      {index: 3, level: 0, dmgMult: 256, costStart: 1500, name: "name4", image:"hero-right-3.png"},
+      {index: 2, level: 0, dmgMult: 80, costStart: 90, name: "Warrior", image: "hero-left-1.png"},
+      {index: 3, level: 0, dmgMult: 480, costStart: 720, name: "Berserk", image: "hero-right-3.png"},
       {index: 4, level: -1},
-      {index: 5, level: 0, dmgMult: 1024, costStart: 15000, name: "name5",  image:"hero-left-2.png"},
-      {index: 6, level: 0, dmgMult: 4096, costStart: 150000, name: "name6", image:"hero-right-4.png"},
-      {index: 7, level: 0, dmgMult: 16384, costStart: 1500000, name: "name7"},
-      {index: 8, level: 0, dmgMult: 65536, costStart: 15000000, name: "name8",  image:"hero-left-3.png"},
+      {index: 5, level: 0, dmgMult: 3360, costStart: 7200, name: "name5", image: "hero-left-2.png"},
+      {index: 6, level: 0, dmgMult: 26880, costStart: 86400, name: "name6", image: "hero-right-4.png"},
+      {index: 7, level: 0, dmgMult: 241920, costStart: 1209600, name: "name7"},
+      {index: 8, level: 0, dmgMult: 2419200, costStart: 19353600, name: "name8", image: "hero-left-3.png"},
     ],
   },
   getters: {

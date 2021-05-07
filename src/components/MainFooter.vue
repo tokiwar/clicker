@@ -1,7 +1,7 @@
 <template>
   <div class="main-window-footer">
     <div class="container-button" @click="openHeroes"><img src="@/assets/img/system/heroes.png" alt=""/></div>
-    <div class="container-button" @click="openSkills"></div>
+    <div class="container-button" @click="openSkills"><img src="@/assets/img/system/skills.png" alt=""/></div>
   </div>
 </template>
 
@@ -39,6 +39,7 @@ export default {
   justify-content: center;
   align-items: center;
   background: cornflowerblue;
+  border: 4px solid #1344a0;
 }
 
 .container-button img {

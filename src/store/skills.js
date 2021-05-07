@@ -13,12 +13,21 @@ export default {
       {
         "index": 1,
         "name": "Double damage",
-        "time": "30",
+        "time": "60",
         "status": false,
         "callback": "doubleDamage",
         "cd_status": false,
-        "cd": "150"
+        "cd": "180"
       },
+      {
+        "index": 2,
+        "name": "Drop boss HP",
+        "time": "60",
+        "status": false,
+        "callback": "dropBossHp",
+        "cd_status": false,
+        "cd": "180"
+      }
     ]
   },
   getters: {

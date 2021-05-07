@@ -24,7 +24,7 @@
         <div class="level-up" :hero="countMult(hero).result"
              :class="{'not-avail' : (heroMoney < countMult(hero).result || countMult(hero).result < 1)}"
              @click="heroMoney >= countMult(hero).result && countMult(hero).result > 0 && levelUp({'index': hero.index, 'money':countMult(hero).result, 'level' : countMult(hero).heroLvl || currentLvlMult})">
-          {{ (currentLvlMult === -1 && heroMoney >= countMult(hero).result ? (beautifyNumbers(countMult(hero).result) + " +(" + countMult(hero).heroLvl + ")") : (beautifyNumbers(countMult(hero).result))) || beautifyNumbers(hero.money) }}
+          {{ (currentLvlMult === -1 && heroMoney >= countMult(hero).result && countMult(hero).result > 0 ? (beautifyNumbers(countMult(hero).result) + " +(" + countMult(hero).heroLvl + ")") : (beautifyNumbers(countMult(hero).result))) || beautifyNumbers(hero.money) }}
         </div>
       </li>
     </ul>

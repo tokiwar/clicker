@@ -1,10 +1,11 @@
 <template>
   <div class="skills-container" :class="{ show: show }">
-    <ul class="skills-ul">
+    <ul class="skills-ul" :style="{height: `${skills.length * 60}px`}">
       <li :key="skill.index" v-for="skill in this.skills" class="skills-li"
           :class="{active: activeSkills.indexOf(skill.index) !== -1 && cdSkills.indexOf(skill.index) === -1, countdown: cdSkills.indexOf(skill.index) !== -1}"
+          @click.prevent="cdSkills.indexOf(skill.index) === -1 && handleFunctionCall(skill.callback, $event)"
       >
-        <a :id="skill.index" @click.prevent="cdSkills.indexOf(skill.index) === -1 && handleFunctionCall(skill.callback, $event)">
+        <a :id="skill.index">
           <span>{{ skill.name }}</span>
         </a>
       </li>
@@ -30,9 +31,33 @@ export default {
     ...mapGetters(["skills", "activeSkills", "cdSkills"]),
   },
   methods: {
-    ...mapActions(["useSkill", "moneyMult", "dmgMult", "setCd"]),
+    ...mapActions(["useSkill", "moneyMult", "dmgMult", "setCd", "hpMult", "setHp"]),
     handleFunctionCall(functionName, event) {
       this[functionName](event)
+    },
+    dropBossHp() {
+      let status = false;
+      let itemR = null;
+      this.skills.forEach((item) => {
+        if (item.callback === "dropBossHp" && !item.status) {
+          status = true;
+          itemR = item;
+        }
+      });
+      if (status) {
+        this.useSkill({"index": itemR.index, "status": true});
+        this.hpMult(0.5);
+        this.setHp();
+        setTimeout(() => {
+          this.useSkill({"index": itemR.index, "status": false});
+          this.hpMult(1);
+          this.setHp();
+          this.setCd({"index": itemR.index, "cd_status": true});
+          setTimeout(() => {
+            this.setCd({"index": itemR.index, "cd_status": false});
+          }, itemR.cd * 1000);
+        }, itemR.time * 1000);
+      }
     },
     doubleDamage() {
       let status = false;

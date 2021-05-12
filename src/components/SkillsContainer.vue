@@ -2,7 +2,9 @@
   <div class="skills-container" :class="{ show: show }">
     <ul class="skills-ul" :style="{height: `${skills.length * 60}px`}">
       <li :key="skill.index" v-for="skill in this.skills" class="skills-li"
-          :class="{active: activeSkills.indexOf(skill.index) !== -1 && cdSkills.indexOf(skill.index) === -1, countdown: cdSkills.indexOf(skill.index) !== -1}"
+          :style="{background: activeSkills.indexOf(skill.index) !== -1
+          ? `linear-gradient(to right,  #32a852 ${skill.time_left / skill.time * 100}%, #e6e600 ${skill.time_left / skill.time * 100}%)`
+          : [cdSkills.indexOf(skill.index) !== -1 ? `linear-gradient(to right,  #e6e600 ${skill.cd_left / skill.cd * 100}%, #6495ed ${skill.cd_left / skill.cd * 100}%)` : 'cornflowerblue']}"
           @click.prevent="cdSkills.indexOf(skill.index) === -1 && handleFunctionCall(skill.callback, $event)"
       >
         <a :id="skill.index">
@@ -31,7 +33,7 @@ export default {
     ...mapGetters(["skills", "activeSkills", "cdSkills"]),
   },
   methods: {
-    ...mapActions(["useSkill", "moneyMult", "dmgMult", "setCd", "hpMult", "setHp"]),
+    ...mapActions(["useSkill", "moneyMult", "dmgMult", "setCd", "hpMult", "setHp", "setCdLeft", "setTimeLeft"]),
     handleFunctionCall(functionName, event) {
       this[functionName](event)
     },
@@ -48,13 +50,27 @@ export default {
         this.useSkill({"index": itemR.index, "status": true});
         this.hpMult(0.5);
         this.setHp();
+        let time = itemR.time_left;
+        let durationInterval = setInterval(() => {
+          time -= 1;
+          this.setTimeLeft({"index": itemR.index, "time_left": time});
+        }, 1000);
         setTimeout(() => {
+          clearInterval(durationInterval);
           this.useSkill({"index": itemR.index, "status": false});
           this.hpMult(1);
           this.setHp();
           this.setCd({"index": itemR.index, "cd_status": true});
+          let cd_time = itemR.cd_left;
+          durationInterval = setInterval(() => {
+            cd_time -= 1;
+            this.setCdLeft({"index": itemR.index, "cd_left": cd_time});
+          }, 1000);
           setTimeout(() => {
+            clearInterval(durationInterval);
             this.setCd({"index": itemR.index, "cd_status": false});
+            this.setTimeLeft({"index": itemR.index, "time_left": itemR.time});
+            this.setCdLeft({"index": itemR.index, "cd_left": itemR.cd});
           }, itemR.cd * 1000);
         }, itemR.time * 1000);
       }
@@ -71,12 +87,26 @@ export default {
       if (status) {
         this.useSkill({"index": itemR.index, "status": true});
         this.dmgMult(2);
+        let time = itemR.time_left;
+        let durationInterval = setInterval(() => {
+          time -= 1;
+          this.setTimeLeft({"index": itemR.index, "time_left": time});
+        }, 1000);
         setTimeout(() => {
+          clearInterval(durationInterval);
           this.useSkill({"index": itemR.index, "status": false});
           this.dmgMult(1);
           this.setCd({"index": itemR.index, "cd_status": true});
+          let cd_time = itemR.cd_left;
+          durationInterval = setInterval(() => {
+            cd_time -= 1;
+            this.setCdLeft({"index": itemR.index, "cd_left": cd_time});
+          }, 1000);
           setTimeout(() => {
+            clearInterval(durationInterval);
             this.setCd({"index": itemR.index, "cd_status": false});
+            this.setTimeLeft({"index": itemR.index, "time_left": itemR.time});
+            this.setCdLeft({"index": itemR.index, "cd_left": itemR.cd});
           }, itemR.cd * 1000);
         }, itemR.time * 1000);
       }
@@ -93,12 +123,26 @@ export default {
       if (status) {
         this.useSkill({"index": itemR.index, "status": true});
         this.moneyMult(2);
+        let time = itemR.time_left;
+        let durationInterval = setInterval(() => {
+          time -= 1;
+          this.setTimeLeft({"index": itemR.index, "time_left": time});
+        }, 1000);
         setTimeout(() => {
+          clearInterval(durationInterval);
           this.useSkill({"index": itemR.index, "status": false});
           this.moneyMult(1);
           this.setCd({"index": itemR.index, "cd_status": true});
+          let cd_time = itemR.cd_left;
+          durationInterval = setInterval(() => {
+            cd_time -= 1;
+            this.setCdLeft({"index": itemR.index, "cd_left": cd_time});
+          }, 1000);
           setTimeout(() => {
+            clearInterval(durationInterval);
             this.setCd({"index": itemR.index, "cd_status": false});
+            this.setTimeLeft({"index": itemR.index, "time_left": itemR.time});
+            this.setCdLeft({"index": itemR.index, "cd_left": itemR.cd});
           }, itemR.cd * 1000);
         }, itemR.time * 1000);
       }

@@ -2,11 +2,11 @@
   <div class="boss">
     <div class="boss-bar-top">
       <div class="boss-hp-current" :style="{width: `${300 * hp / maxHp}px`}"></div>
-      <div class="boss-hp"><span>{{ hp }}</span></div>
+      <div class="boss-hp"><span>{{ (100 * hp / maxHp).toFixed(2) + ' %' }}</span></div>
     </div>
     <div class="boss-bar-bottom">
       <div class="boss-exp-current" :style="{width: `${300 * heroExp / heroTopExp}px`}"></div>
-      <div class="boss-exp"><span>{{ heroExp }}</span></div>
+      <div class="boss-exp"><span>{{ (100 * heroExp / heroTopExp).toFixed(2) + ' %'}}</span></div>
     </div>
     <img :src="require('@/assets/img/bosses/boss-' + this.bossType +'.png')" alt=""/>
   </div>
